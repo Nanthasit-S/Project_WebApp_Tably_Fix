@@ -1,0 +1,107 @@
+/*
+  [!!]
+  เราจะลบ @plugin, @source, @custom-variant 
+  และแทนที่ด้วย @tailwind directives มาตรฐานของ v3 ครับ
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    /*
+    background-color: var(--background-solid);
+    background-image: var(--background-gradient);
+    */
+    transition: background 0.4s ease;
+}
+
+body {
+    background-color: transparent;
+    /*
+    color: var(--text-primary);
+    */
+    transition: color 0.3s ease, background 0.4s ease;
+}
+
+.page-fade {
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+    transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Custom Swiper Styles for a friendly UX/UI */
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: rgba(38, 38, 38, 0.5); /* Semi-transparent black background */
+    border-radius: 50%; /* Make it circular */
+    width: 44px !important; /* Set a fixed width */
+    height: 44px !important; /* Set a fixed height */
+    color: #ffffff !important; /* White arrow color */
+    transition: background-color 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* Darker on hover */
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 1.25rem !important; /* Adjust arrow size */
+    font-weight: 700;
+}
+
+.swiper-pagination-bullet {
+    background-color: #A1A1AA !important; /* Inactive bullet color (gray) */
+    opacity: 0.8 !important;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #ffffff !important; /* Active bullet color (violet) */
+    opacity: 1 !important;
+}
+
+.card-container {
+    position: relative;
+    overflow: hidden; /* Ensures the overlay stays within the card's bounds */
+    border-radius: 1rem; /* Match HeroUI Card's default radius */
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.card-container:hover .card-overlay {
+    opacity: 1;
+}
+
+input,
+textarea,
+select {
+  border: none;
+  outline: none;
+  box-shadow: none; /* ปิดการแสดง shadow ของ input */
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.5); /* ปรับสี placeholder */
+}
