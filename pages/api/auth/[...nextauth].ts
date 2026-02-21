@@ -7,6 +7,9 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  pages: {
+    error: "/auth/error",
+  },
   providers: [
     LineProvider({
       clientId: process.env.LINE_LOGIN_CHANNEL_ID!,
@@ -15,6 +18,10 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user }) {
+      if (!user?.id) {
+        return false;
+      }
+
       try {
         await withConnection(async (conn) => {
           const existingUser = (await conn.query(
