@@ -23,14 +23,30 @@ export type DbConnection = {
 };
 
 const connectionString =
+  process.env.SUPABASE_DB_POOLER_URL ||
   process.env.SUPABASE_DB_URL ||
   process.env.DATABASE_URL ||
   process.env.POSTGRES_URL;
 
+const isSupabaseDirectHost = (value: string): boolean => {
+  try {
+    const parsed = new URL(value);
+    return /^db\..+\.supabase\.co$/i.test(parsed.hostname);
+  } catch {
+    return false;
+  }
+};
+
 const createPool = (): Pool => {
   if (!connectionString) {
     throw new Error(
-      "Missing database connection string. Set SUPABASE_DB_URL or DATABASE_URL.",
+      "Missing database connection string. Set SUPABASE_DB_POOLER_URL, SUPABASE_DB_URL or DATABASE_URL.",
+    );
+  }
+
+  if (isSupabaseDirectHost(connectionString)) {
+    throw new Error(
+      "Detected Supabase Direct DB URL (db.<project-ref>.supabase.co). On Vercel use Supabase Pooler URL instead (port 6543, sslmode=require).",
     );
   }
 

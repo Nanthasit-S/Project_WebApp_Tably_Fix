@@ -1,20 +1,25 @@
 # Tably (Next.js + Supabase)
 
-โปรเจกต์นี้รองรับการ deploy บน Vercel และใช้ Supabase แทน MariaDB แล้ว
+This project is configured for Vercel + Supabase (Postgres + Storage).
 
-## 1) ติดตั้งแพ็กเกจ
+## Install
 
 ```bash
 bun install
 ```
 
-## 2) Environment Variables
+## Environment Variables
 
-สร้างไฟล์ `.env.local` และใส่ค่า:
+Create `.env.local`:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
+
+# Recommended for Vercel (Supabase Pooler URL, port 6543)
+SUPABASE_DB_POOLER_URL=
+
+# Optional fallback (direct/non-pooler URL)
 SUPABASE_DB_URL=
 SUPABASE_STORAGE_BUCKET=uploads
 
@@ -28,30 +33,23 @@ NEXT_PUBLIC_SITE_URL=
 
 OPENSLIPVERIFY_TOKEN=
 PROMPTPAY_ACCOUNT=
-
-# ถ้าต่อ Postgres local ที่ไม่ใช้ SSL:
-# DB_DISABLE_SSL=true
 ```
 
-## 3) Supabase ที่ต้องเตรียม
+## Important (Vercel)
 
-- สร้างโปรเจกต์ Supabase
-- สร้าง `public bucket` ชื่อ `uploads` (หรือใช้ชื่อเดียวกับ `SUPABASE_STORAGE_BUCKET`)
-- นำ schema เดิมขึ้น Supabase Postgres (แนะนำผ่าน migration/SQL Editor)
+Do not use direct DB host (`db.<project-ref>.supabase.co:5432`) in Vercel.
+Use Supabase **Pooler** connection string instead (`...pooler.supabase.com:6543?...`).
 
-หมายเหตุ:
-- ระบบจะสร้างตาราง `booking_orders` และ `ui_texts` ให้อัตโนมัติเมื่อมีการเรียกใช้งานครั้งแรก
+## Database Setup
 
-## 4) Run Local
+Run `project_booking-table.sql` in Supabase SQL Editor.
+
+## Run
 
 ```bash
 bun run dev
 ```
 
-## 5) Deploy Vercel
+## Deploy
 
-- Push ขึ้น Git repository
-- Import โปรเจกต์ใน Vercel
-- ตั้งค่า Environment Variables ชุดเดียวกับ `.env.local`
-- Deploy
-
+Set all required env vars in Vercel (Production + Preview), then redeploy.
