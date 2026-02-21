@@ -1,4 +1,4 @@
-﻿import type { EventOrderSummary } from "@/types/event-orders";
+import type { EventOrderSummary } from "@/types/event-orders";
 
 import React, { useMemo } from "react";
 import NextLink from "next/link";

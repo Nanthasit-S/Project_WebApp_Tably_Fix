@@ -14,6 +14,8 @@ const getErrorMessage = (errorCode: string): string => {
       return "การตั้งค่าระบบล็อกอินไม่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ";
     case "Verification":
       return "การยืนยันตัวตนล้มเหลว กรุณาลองใหม่อีกครั้ง";
+    case "Database":
+      return "เชื่อมต่อฐานข้อมูลไม่สำเร็จ กรุณาตรวจสอบค่า SUPABASE_DB_POOLER_URL และลองอีกครั้ง";
     default:
       return "เกิดข้อผิดพลาดระหว่างเข้าสู่ระบบ";
   }

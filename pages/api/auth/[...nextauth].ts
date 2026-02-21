@@ -17,39 +17,47 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
-      if (!user?.id) {
+    async signIn({ user, account }) {
+      const lineId =
+        (typeof user?.id === "string" && user.id.trim()) ||
+        (typeof account?.providerAccountId === "string" &&
+          account.providerAccountId.trim()) ||
+        "";
+
+      if (!lineId) {
+        console.error("Sign in error: Missing LINE user id.");
         return false;
       }
 
+      const displayName =
+        typeof user?.name === "string" && user.name.trim().length > 0
+          ? user.name.trim()
+          : `LINE User ${lineId.slice(-6)}`;
+      const pictureUrl =
+        typeof user?.image === "string" && user.image.trim().length > 0
+          ? user.image
+          : null;
+
       try {
         await withConnection(async (conn) => {
-          const existingUser = (await conn.query(
-            "SELECT id FROM users WHERE line_id = ?",
-            [user.id],
-          )) as Array<{ id: number }>;
-
-          const displayName = user.name;
-          const pictureUrl = user.image;
-
-          if (existingUser.length === 0) {
-            await conn.query(
-              "INSERT INTO users (line_id, display_name, picture_url, role) VALUES (?, ?, ?, ?)",
-              [user.id, displayName, pictureUrl, "user"],
-            );
-          } else {
-            await conn.query(
-              "UPDATE users SET display_name = ?, picture_url = ? WHERE line_id = ?",
-              [displayName, pictureUrl, user.id],
-            );
-          }
+          await conn.query(
+            `
+              INSERT INTO users (line_id, display_name, picture_url, role)
+              VALUES (?, ?, ?, 'user')
+              ON CONFLICT (line_id)
+              DO UPDATE SET
+                display_name = EXCLUDED.display_name,
+                picture_url = EXCLUDED.picture_url
+            `,
+            [lineId, displayName, pictureUrl],
+          );
         });
 
+        user.id = lineId;
         return true;
       } catch (error) {
         console.error("Sign in error:", error);
-
-        return false;
+        return "/auth/error?error=Database";
       }
     },
     async jwt({ token, user }) {

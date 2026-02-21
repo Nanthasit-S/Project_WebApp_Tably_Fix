@@ -1,4 +1,4 @@
-﻿import type { UiTextMap } from "@/lib/ui-texts";
+import type { UiTextMap } from "@/lib/ui-texts";
 
 import React, { useEffect, useMemo, useState } from "react";
 import NextLink from "next/link";

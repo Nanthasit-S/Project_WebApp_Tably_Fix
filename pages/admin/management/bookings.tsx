@@ -60,33 +60,33 @@ const moduleMeta: Record<
   }
 > = {
   bookings: {
-    title: "à¸„à¸´à¸§à¸à¸²à¸£à¸ˆà¸­à¸‡",
-    description: "à¸•à¸£à¸§à¸ˆà¸ªà¸¥à¸´à¸›à¸¢à¸·à¸™à¸¢à¸±à¸™à¸«à¸£à¸·à¸­à¸¢à¸à¹€à¸¥à¸´à¸à¸„à¸³à¸ˆà¸­à¸‡",
+    title: "คิวการจอง",
+    description: "ตรวจสลิปยืนยันหรือยกเลิกคำจอง",
     insights: [
-      "à¹ƒà¸Šà¹‰à¸•à¸±à¸§à¸à¸£à¸­à¸‡à¸ªà¸–à¸²à¸™à¸°à¹€à¸žà¸·à¹ˆà¸­à¹€à¸ˆà¸²à¸°à¸ˆà¸‡à¸£à¸²à¸¢à¸à¸²à¸£à¸—à¸µà¹ˆà¸•à¹‰à¸­à¸‡à¸•à¸£à¸§à¸ˆà¸ªà¸­à¸š",
-      "à¸—à¸¸à¸à¸à¸²à¸£à¸¢à¸·à¸™à¸¢à¸±à¸™à¸ˆà¸°à¸­à¸±à¸›à¹€à¸”à¸•à¹à¸”à¸Šà¸šà¸­à¸£à¹Œà¸”à¸—à¸±à¸™à¸—à¸µ",
+      "ใช้ตัวกรองสถานะเพื่อเจาะจงรายการที่ต้องตรวจสอบ",
+      "ทุกการยืนยันจะอัปเดตแดชบอร์ดทันที",
     ],
     icon: <BookingIcon />,
     accent: "from-primary-500/10 via-primary-500/5 to-primary-500/25",
   },
   tables: {
-    title: "à¸œà¸±à¸‡à¹‚à¸•à¹Šà¸°à¹à¸¥à¸°à¸ªà¸–à¸²à¸™à¸°",
+    title: "ผังโต๊ะและสถานะ",
     description:
-      "à¸›à¸£à¸±à¸šà¸ˆà¸³à¸™à¸§à¸™à¸—à¸µà¹ˆà¸™à¸±à¹ˆà¸‡",
+      "ปรับจำนวนที่นั่ง",
     badge: "Layout Matrix",
     insights: [
-      "à¹€à¸Šà¹‡à¸à¸­à¸±à¸•à¸£à¸²à¸à¸²à¸£à¹ƒà¸Šà¹‰à¸‡à¸²à¸™à¸œà¹ˆà¸²à¸™à¸ªà¸–à¸´à¸•à¸´à¸”à¹‰à¸²à¸™à¸šà¸™à¸à¹ˆà¸­à¸™à¸•à¸±à¸”à¸ªà¸´à¸™à¹ƒà¸ˆà¸›à¸£à¸±à¸šà¸œà¸±à¸‡",
+      "เช็กอัตราการใช้งานผ่านสถิติด้านบนก่อนตัดสินใจปรับผัง",
     ],
     icon: <TableIcon />,
     accent: "from-emerald-500/10 via-emerald-500/5 to-emerald-500/25",
   },
   zones: {
-    title: "à¹‚à¸‹à¸™à¹à¸¥à¸°à¸„à¹ˆà¸²à¸˜à¸£à¸£à¸¡à¹€à¸™à¸µà¸¢à¸¡",
+    title: "โซนและค่าธรรมเนียม",
     description:
-      "à¸à¸³à¸«à¸™à¸”à¸žà¸·à¹‰à¸™à¸—à¸µà¹ˆà¸šà¸£à¸´à¸à¸²à¸£",
+      "กำหนดพื้นที่บริการ",
     badge: "Configuration",
     insights: [
-      "à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸„à¹ˆà¸²à¸˜à¸£à¸£à¸¡à¹€à¸™à¸µà¸¢à¸¡à¹ƒà¸«à¹‰à¸ªà¸­à¸”à¸„à¸¥à¹‰à¸­à¸‡à¸à¸±à¸šà¸„à¸§à¸²à¸¡à¸™à¸´à¸¢à¸¡à¸‚à¸­à¸‡à¹‚à¸‹à¸™"
+      "ตั้งค่าค่าธรรมเนียมให้สอดคล้องกับความนิยมของโซน"
     ],
     icon: <ZoneIcon />,
     accent: "from-rose-500/10 via-rose-500/5 to-rose-500/25",
@@ -143,7 +143,7 @@ export default function ManageBookingsPage() {
     return (
       <DefaultLayout>
         <div className="flex h-[calc(100vh-150px)] items-center justify-center">
-          <Spinner color="primary" label="à¸à¸³à¸¥à¸±à¸‡à¸•à¸£à¸§à¸ˆà¸ªà¸­à¸šà¸ªà¸´à¸—à¸˜à¸´à¹Œ..." size="lg" />
+          <Spinner color="primary" label="กำลังตรวจสอบสิทธิ์..." size="lg" />
         </div>
       </DefaultLayout>
     );
@@ -167,7 +167,7 @@ export default function ManageBookingsPage() {
       tabList:
         "bg-white/5 border border-white/10 p-3 gap-4 flex-wrap rounded-2xl backdrop-blur-2xl justify-center",
       tab: [
-        // âœ… à¹ƒà¸«à¹‰à¸—à¸¸à¸à¹à¸—à¹‡à¸šà¸¡à¸µà¸‚à¸™à¸²à¸”à¹€à¸—à¹ˆà¸²à¸à¸±à¸™ à¸ªà¸¡à¸ªà¹ˆà¸§à¸™
+        // ✅ ให้ทุกแท็บมีขนาดเท่ากัน สมส่วน
         "flex items-center justify-start w-[260px] h-24 rounded-2xl px-4 transition-all",
         "data-[selected=true]:bg-white/10 data-[selected=true]:border data-[selected=true]:border-white/20",
         "hover:bg-white/5 active:scale-[0.98]",
@@ -198,7 +198,7 @@ export default function ManageBookingsPage() {
           </div>
         }
       >
-        {/* âœ… à¹€à¸™à¸·à¹‰à¸­à¸«à¸²à¹à¸•à¹ˆà¸¥à¸°à¹à¸—à¹‡à¸šà¸¡à¸µ padding à¹€à¸—à¹ˆà¸²à¸à¸±à¸™ à¹à¸¥à¸° card à¹€à¸”à¸´à¸¡à¸à¹‡à¹€à¸—à¹ˆà¸²à¸à¸±à¸™ */}
+        {/* ✅ เนื้อหาแต่ละแท็บมี padding เท่ากัน และ card เดิมก็เท่ากัน */}
         <Card className="mt-6 border border-white/10 bg-white/5 backdrop-blur-2xl rounded-2xl overflow-hidden">
           <CardHeader className="flex flex-col gap-3 border-b border-white/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
