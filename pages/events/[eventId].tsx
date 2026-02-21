@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import Image from "next/image";
 import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn } from "@/lib/next-auth-react";
 import { format, formatDistanceToNow } from "date-fns";
 import { th } from "date-fns/locale";
 
@@ -73,8 +73,8 @@ export default function EventPage({ event }: EventPageProps) {
   const formattedEventDate = useMemo(
     () =>
       eventDate
-        ? format(eventDate, "EEEE ที่ d MMMM yyyy HH:mm น.", { locale: th })
-        : "กำหนดการจะแจ้งให้ทราบ",
+        ? format(eventDate, "EEEE à¸—à¸µà¹ˆ d MMMM yyyy HH:mm à¸™.", { locale: th })
+        : "à¸à¸³à¸«à¸™à¸”à¸à¸²à¸£à¸ˆà¸°à¹à¸ˆà¹‰à¸‡à¹ƒà¸«à¹‰à¸—à¸£à¸²à¸š",
     [eventDate],
   );
   const relativeEventDate = useMemo(
@@ -98,16 +98,16 @@ export default function EventPage({ event }: EventPageProps) {
 
   const saleStatus = useMemo(() => {
     if (!event) {
-      return "ไม่มีข้อมูลสถานะจำหน่าย";
+      return "à¹„à¸¡à¹ˆà¸¡à¸µà¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸ªà¸–à¸²à¸™à¸°à¸ˆà¸³à¸«à¸™à¹ˆà¸²à¸¢";
     }
     if (isSoldOut) {
-      return "จำหน่ายหมดแล้ว";
+      return "à¸ˆà¸³à¸«à¸™à¹ˆà¸²à¸¢à¸«à¸¡à¸”à¹à¸¥à¹‰à¸§";
     }
     if (!isEventActive) {
-      return "ยังไม่เปิดจำหน่าย";
+      return "à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¹€à¸›à¸´à¸”à¸ˆà¸³à¸«à¸™à¹ˆà¸²à¸¢";
     }
 
-    return "กำลังจำหน่าย";
+    return "à¸à¸³à¸¥à¸±à¸‡à¸ˆà¸³à¸«à¸™à¹ˆà¸²à¸¢";
   }, [event, isSoldOut, isEventActive]);
 
   const saleBadgeClass = isSoldOut
@@ -184,11 +184,11 @@ export default function EventPage({ event }: EventPageProps) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "ไม่สามารถสร้างคำสั่งซื้อได้ในขณะนี้");
+        throw new Error(data.message || "à¹„à¸¡à¹ˆà¸ªà¸²à¸¡à¸²à¸£à¸–à¸ªà¸£à¹‰à¸²à¸‡à¸„à¸³à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­à¹„à¸”à¹‰à¹ƒà¸™à¸‚à¸“à¸°à¸™à¸µà¹‰");
       }
 
       if (!data.requiresPayment || data.status === "paid") {
-        alert("ยืนยันคำสั่งซื้อเรียบร้อยแล้ว เราจะพาคุณไปยังหน้าบัตรทันที");
+        alert("à¸¢à¸·à¸™à¸¢à¸±à¸™à¸„à¸³à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­à¹€à¸£à¸µà¸¢à¸šà¸£à¹‰à¸­à¸¢à¹à¸¥à¹‰à¸§ à¹€à¸£à¸²à¸ˆà¸°à¸žà¸²à¸„à¸¸à¸“à¹„à¸›à¸¢à¸±à¸‡à¸«à¸™à¹‰à¸²à¸šà¸±à¸•à¸£à¸—à¸±à¸™à¸—à¸µ");
         router.push("/profile/tickets");
 
         return;
@@ -196,7 +196,7 @@ export default function EventPage({ event }: EventPageProps) {
 
       router.push(`/events/order/${data.orderId}`);
     } catch (error: any) {
-      alert(`เกิดข้อผิดพลาด: ${error.message}`);
+      alert(`à¹€à¸à¸´à¸”à¸‚à¹‰à¸­à¸œà¸´à¸”à¸žà¸¥à¸²à¸”: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -207,7 +207,7 @@ export default function EventPage({ event }: EventPageProps) {
       <DefaultLayout>
         <div className="flex h-[calc(100vh-160px)] flex-col items-center justify-center gap-3 text-muted">
           <span className="inline-flex h-12 w-12 animate-spin rounded-full border-2 border-white/30 border-t-transparent" />
-          <p className="text-sm">กำลังโหลดรายละเอียดกิจกรรม...</p>
+          <p className="text-sm">à¸à¸³à¸¥à¸±à¸‡à¹‚à¸«à¸¥à¸”à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¸à¸´à¸ˆà¸à¸£à¸£à¸¡...</p>
         </div>
       </DefaultLayout>
     );
@@ -238,7 +238,7 @@ export default function EventPage({ event }: EventPageProps) {
                 />
               </svg>
             </span>
-            กลับไปดูกิจกรรมอื่น
+            à¸à¸¥à¸±à¸šà¹„à¸›à¸”à¸¹à¸à¸´à¸ˆà¸à¸£à¸£à¸¡à¸­à¸·à¹ˆà¸™
           </NextLink>
         </div>
 
@@ -268,7 +268,7 @@ export default function EventPage({ event }: EventPageProps) {
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="space-y-2">
                     <p className="text-xs font-semibold uppercase text-white/45">
-                      รายละเอียดกิจกรรม
+                      à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¸à¸´à¸ˆà¸à¸£à¸£à¸¡
                     </p>
                     <h1 className="text-3xl font-semibold text-white md:text-4xl">
                       {event.title}
@@ -286,8 +286,8 @@ export default function EventPage({ event }: EventPageProps) {
                   </p>
                 ) : (
                   <p className="text-lg leading-8 text-white/70">
-                    กิจกรรมนี้ยังไม่มีคำบรรยายเพิ่มเติม
-                    เราจะอัปเดตข้อมูลทันทีที่ได้รับจากผู้จัดงาน
+                    à¸à¸´à¸ˆà¸à¸£à¸£à¸¡à¸™à¸µà¹‰à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸µà¸„à¸³à¸šà¸£à¸£à¸¢à¸²à¸¢à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡
+                    à¹€à¸£à¸²à¸ˆà¸°à¸­à¸±à¸›à¹€à¸”à¸•à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸—à¸±à¸™à¸—à¸µà¸—à¸µà¹ˆà¹„à¸”à¹‰à¸£à¸±à¸šà¸ˆà¸²à¸à¸œà¸¹à¹‰à¸ˆà¸±à¸”à¸‡à¸²à¸™
                   </p>
                 )}
               </div>
@@ -297,7 +297,7 @@ export default function EventPage({ event }: EventPageProps) {
               <div className="grid gap-4 sm:grid-cols-3">
                 <div className="rounded-2xl border border-white/10 bg-white/4 px-4 py-3">
                   <p className="text-[11px] uppercase text-white/45">
-                    วันและเวลา
+                    à¸§à¸±à¸™à¹à¸¥à¸°à¹€à¸§à¸¥à¸²
                   </p>
                   <p className="mt-2 text-lg font-semibold text-white">
                     {formattedEventDate}
@@ -305,21 +305,21 @@ export default function EventPage({ event }: EventPageProps) {
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/4 px-4 py-3">
                   <p className="text-[11px] uppercase text-white/45">
-                    บัตรคงเหลือ
+                    à¸šà¸±à¸•à¸£à¸„à¸‡à¹€à¸«à¸¥à¸·à¸­
                   </p>
                   <p className="mt-2 text-lg font-semibold text-white">
                     {ticketsRemaining.toLocaleString("th-TH")} /{" "}
-                    {event.total_tickets.toLocaleString("th-TH")} ใบ
+                    {event.total_tickets.toLocaleString("th-TH")} à¹ƒà¸š
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/4 px-4 py-3">
                   <p className="text-[11px] uppercase text-white/45">
-                    ราคาต่อใบ
+                    à¸£à¸²à¸„à¸²à¸•à¹ˆà¸­à¹ƒà¸š
                   </p>
                   <p className="mt-2 text-lg font-semibold text-white">
                     {requiresPayment
-                      ? `${formatCurrency(priceAsNumber)} บาท`
-                      : "เข้าร่วมฟรี"}
+                      ? `${formatCurrency(priceAsNumber)} à¸šà¸²à¸—`
+                      : "à¹€à¸‚à¹‰à¸²à¸£à¹ˆà¸§à¸¡à¸Ÿà¸£à¸µ"}
                   </p>
                 </div>
               </div>
@@ -327,7 +327,7 @@ export default function EventPage({ event }: EventPageProps) {
               <div className="mt-6 space-y-3">
                 <div>
                   <div className="flex items-center justify-between text-xs uppercase text-white/50">
-                    <span>ยอดขายรวม</span>
+                    <span>à¸¢à¸­à¸”à¸‚à¸²à¸¢à¸£à¸§à¸¡</span>
                     <span>{ticketsProgress}%</span>
                   </div>
                   <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/10">
@@ -342,7 +342,7 @@ export default function EventPage({ event }: EventPageProps) {
 
             <div className="rounded-3xl border border-white/10 bg-white/5 px-6 py-6">
               <h2 className="text-lg font-semibold text-white">
-                ข้อมูลเพิ่มเติม
+                à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-7 text-white/70">
                 {descriptionParagraphs.length > 1
@@ -351,15 +351,15 @@ export default function EventPage({ event }: EventPageProps) {
                       .map((paragraph, index) => <p key={index}>{paragraph}</p>)
                   : descriptionParagraphs.length === 0 && (
                       <p>
-                        หากคุณต้องการรายละเอียดเพิ่มเติมเกี่ยวกับกิจกรรมนี้
-                        กรุณาติดต่อผู้จัดงาน
-                        หรือติดตามประกาศผ่านช่องทางโซเชียลมีเดียของเรา
+                        à¸«à¸²à¸à¸„à¸¸à¸“à¸•à¹‰à¸­à¸‡à¸à¸²à¸£à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡à¹€à¸à¸µà¹ˆà¸¢à¸§à¸à¸±à¸šà¸à¸´à¸ˆà¸à¸£à¸£à¸¡à¸™à¸µà¹‰
+                        à¸à¸£à¸¸à¸“à¸²à¸•à¸´à¸”à¸•à¹ˆà¸­à¸œà¸¹à¹‰à¸ˆà¸±à¸”à¸‡à¸²à¸™
+                        à¸«à¸£à¸·à¸­à¸•à¸´à¸”à¸•à¸²à¸¡à¸›à¸£à¸°à¸à¸²à¸¨à¸œà¹ˆà¸²à¸™à¸Šà¹ˆà¸­à¸‡à¸—à¸²à¸‡à¹‚à¸‹à¹€à¸Šà¸µà¸¢à¸¥à¸¡à¸µà¹€à¸”à¸µà¸¢à¸‚à¸­à¸‡à¹€à¸£à¸²
                       </p>
                     )}
                 <ul className="list-disc space-y-2 pl-5 text-white/60">
                   <li>
-                    กรุณาชำระเงินภายใน 15 นาทีหลังจากกดสั่งซื้อ
-                    เพื่อรักษาสิทธิ์ของคุณ
+                    à¸à¸£à¸¸à¸“à¸²à¸Šà¸³à¸£à¸°à¹€à¸‡à¸´à¸™à¸ à¸²à¸¢à¹ƒà¸™ 15 à¸™à¸²à¸—à¸µà¸«à¸¥à¸±à¸‡à¸ˆà¸²à¸à¸à¸”à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­
+                    à¹€à¸žà¸·à¹ˆà¸­à¸£à¸±à¸à¸©à¸²à¸ªà¸´à¸—à¸˜à¸´à¹Œà¸‚à¸­à¸‡à¸„à¸¸à¸“
                   </li>
                 </ul>
               </div>
@@ -369,11 +369,11 @@ export default function EventPage({ event }: EventPageProps) {
           <aside className="space-y-6">
             <div className="rounded-3xl border border-white/12 bg-white/5 px-6 py-6">
               <h2 className="text-lg font-semibold text-white">
-                ขั้นตอนการสั่งซื้อ
+                à¸‚à¸±à¹‰à¸™à¸•à¸­à¸™à¸à¸²à¸£à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­
               </h2>
               <div className="mt-4 space-y-4">
                 <p className="text-sm font-medium text-white/80">
-                  เลือกจำนวนบัตรที่ต้องการ
+                  à¹€à¸¥à¸·à¸­à¸à¸ˆà¸³à¸™à¸§à¸™à¸šà¸±à¸•à¸£à¸—à¸µà¹ˆà¸•à¹‰à¸­à¸‡à¸à¸²à¸£
                 </p>
                 <div className="flex items-center justify-between rounded-2xl border border-white/15 bg-black/20 px-3 py-2">
                   <button
@@ -398,23 +398,23 @@ export default function EventPage({ event }: EventPageProps) {
                 </div>
                 <p className="text-xs text-white/60">
                   {ticketsRemaining > 0
-                    ? `ซื้อได้สูงสุด ${purchaseCap.toLocaleString("th-TH")} ใบ (เหลือ ${ticketsRemaining.toLocaleString(
+                    ? `à¸‹à¸·à¹‰à¸­à¹„à¸”à¹‰à¸ªà¸¹à¸‡à¸ªà¸¸à¸” ${purchaseCap.toLocaleString("th-TH")} à¹ƒà¸š (à¹€à¸«à¸¥à¸·à¸­ ${ticketsRemaining.toLocaleString(
                         "th-TH",
-                      )} ใบ)`
-                    : "จำหน่ายหมดแล้ว"}
+                      )} à¹ƒà¸š)`
+                    : "à¸ˆà¸³à¸«à¸™à¹ˆà¸²à¸¢à¸«à¸¡à¸”à¹à¸¥à¹‰à¸§"}
                 </p>
               </div>
 
               {requiresPayment ? (
                 <div className="mt-4 rounded-2xl border border-emerald-400/30 bg-emerald-500/15 px-4 py-3 text-sm text-emerald-100">
-                  ยอดชำระรวม{" "}
+                  à¸¢à¸­à¸”à¸Šà¸³à¸£à¸°à¸£à¸§à¸¡{" "}
                   <span className="text-lg font-semibold text-white">
-                    {formatCurrency(totalCost)} บาท
+                    {formatCurrency(totalCost)} à¸šà¸²à¸—
                   </span>
                 </div>
               ) : (
                 <div className="mt-4 rounded-2xl border border-amber-400/30 bg-amber-500/15 px-4 py-3 text-sm text-amber-100">
-                  เข้าร่วมฟรี ไม่มีค่าใช้จ่าย
+                  à¹€à¸‚à¹‰à¸²à¸£à¹ˆà¸§à¸¡à¸Ÿà¸£à¸µ à¹„à¸¡à¹ˆà¸¡à¸µà¸„à¹ˆà¸²à¹ƒà¸Šà¹‰à¸ˆà¹ˆà¸²à¸¢
                 </div>
               )}
 
@@ -432,12 +432,12 @@ export default function EventPage({ event }: EventPageProps) {
                 {isSubmitting ? (
                   <span className="inline-flex items-center gap-2">
                     <InlineSpinner />
-                    <span>กำลังส่งคำสั่งซื้อ...</span>
+                    <span>à¸à¸³à¸¥à¸±à¸‡à¸ªà¹ˆà¸‡à¸„à¸³à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­...</span>
                   </span>
                 ) : isSoldOut ? (
-                  "จำหน่ายหมดแล้ว"
+                  "à¸ˆà¸³à¸«à¸™à¹ˆà¸²à¸¢à¸«à¸¡à¸”à¹à¸¥à¹‰à¸§"
                 ) : (
-                  `ยืนยันการจอง ${quantity.toLocaleString("th-TH")} ใบ`
+                  `à¸¢à¸·à¸™à¸¢à¸±à¸™à¸à¸²à¸£à¸ˆà¸­à¸‡ ${quantity.toLocaleString("th-TH")} à¹ƒà¸š`
                 )}
               </button>
             </div>
@@ -489,3 +489,4 @@ export const getServerSideProps: GetServerSideProps<EventPageProps> = async (
     return { props: { event: null } };
   }
 };
+

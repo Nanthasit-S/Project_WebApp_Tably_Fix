@@ -1,7 +1,7 @@
 // fixcy/pages/admin/management/zones.tsx
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useSession } from "@/lib/next-auth-react";
 import { Spinner } from "@heroui/spinner";
 
 import DefaultLayout from "@/layouts/default";
@@ -33,3 +33,4 @@ export default function ManageZonesPage() {
     </DefaultLayout>
   );
 }
+

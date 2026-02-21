@@ -1,5 +1,5 @@
 // web-app-none-node/components/shared/Navbar.tsx
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut } from "@/lib/next-auth-react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState, useCallback, Key } from "react";
@@ -109,7 +109,7 @@ const BrandIcon = () => (
   </svg>
 );
 
-/* ---------- ช่วยให้สไตล์ลิงก์/ปุ่มใน Navbar “เหมือนกัน” ทุกที่ ---------- */
+/* ---------- à¸Šà¹ˆà¸§à¸¢à¹ƒà¸«à¹‰à¸ªà¹„à¸•à¸¥à¹Œà¸¥à¸´à¸‡à¸à¹Œ/à¸›à¸¸à¹ˆà¸¡à¹ƒà¸™ Navbar â€œà¹€à¸«à¸¡à¸·à¸­à¸™à¸à¸±à¸™â€ à¸—à¸¸à¸à¸—à¸µà¹ˆ ---------- */
 const navLinkBase =
   "inline-flex items-center rounded-md px-3 py-2 text-sm font-medium transition-all duration-200";
 const navLinkIdle = "text-zinc-400 hover:text-emerald-300";
@@ -135,14 +135,14 @@ export const NavbarComponent = () => {
 
   const navLinks = useMemo(() => {
     const primaryLink = isAuthenticated
-      ? { label: "โปรไฟล์", href: "/profile", needsAuth: false }
-      : { label: "หน้าหลัก", href: "/", needsAuth: false };
+      ? { label: "à¹‚à¸›à¸£à¹„à¸Ÿà¸¥à¹Œ", href: "/profile", needsAuth: false }
+      : { label: "à¸«à¸™à¹‰à¸²à¸«à¸¥à¸±à¸", href: "/", needsAuth: false };
 
     return [
       primaryLink,
-      { label: "จองโต๊ะ", href: "/booking", needsAuth: true }, 
-      { label: "แผงผังโต๊ะ", href: "/layout-table", needsAuth: false },
-      { label: "อีเวนต์", href: "/events", needsAuth: false },
+      { label: "à¸ˆà¸­à¸‡à¹‚à¸•à¹Šà¸°", href: "/booking", needsAuth: true }, 
+      { label: "à¹à¸œà¸‡à¸œà¸±à¸‡à¹‚à¸•à¹Šà¸°", href: "/layout-table", needsAuth: false },
+      { label: "à¸­à¸µà¹€à¸§à¸™à¸•à¹Œ", href: "/events", needsAuth: false },
     ];
   }, [isAuthenticated]);
 
@@ -204,23 +204,23 @@ export const NavbarComponent = () => {
             onAction={handleDropdownAction}
           >
             {user.role === "admin" ? (
-              <DropdownSection title="เครื่องมือจัดการ">
+              <DropdownSection title="à¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¸¡à¸·à¸­à¸ˆà¸±à¸”à¸à¸²à¸£">
                 <DropdownItem
                   key="management"
                   startContent={<TableIcon />}
-                  textValue="จัดการสถานประกอบการ"
+                  textValue="à¸ˆà¸±à¸”à¸à¸²à¸£à¸ªà¸–à¸²à¸™à¸›à¸£à¸°à¸à¸­à¸šà¸à¸²à¸£"
                 >
-                  จัดการสถานประกอบการ
+                  à¸ˆà¸±à¸”à¸à¸²à¸£à¸ªà¸–à¸²à¸™à¸›à¸£à¸°à¸à¸­à¸šà¸à¸²à¸£
                 </DropdownItem>
               </DropdownSection>
             ) : null}
-            <DropdownSection title="บัญชีของฉัน">
+            <DropdownSection title="à¸šà¸±à¸à¸Šà¸µà¸‚à¸­à¸‡à¸‰à¸±à¸™">
               <DropdownItem
                 key="profile"
                 startContent={<SettingsIcon />}
-                textValue="โปรไฟล์ของฉัน"
+                textValue="à¹‚à¸›à¸£à¹„à¸Ÿà¸¥à¹Œà¸‚à¸­à¸‡à¸‰à¸±à¸™"
               >
-                โปรไฟล์ของฉัน
+                à¹‚à¸›à¸£à¹„à¸Ÿà¸¥à¹Œà¸‚à¸­à¸‡à¸‰à¸±à¸™
               </DropdownItem>
             </DropdownSection>
             <DropdownSection>
@@ -228,9 +228,9 @@ export const NavbarComponent = () => {
                 key="logout"
                 color="danger"
                 startContent={<LogoutIcon />}
-                textValue="ออกจากระบบ"
+                textValue="à¸­à¸­à¸à¸ˆà¸²à¸à¸£à¸°à¸šà¸š"
               >
-                ออกจากระบบ
+                à¸­à¸­à¸à¸ˆà¸²à¸à¸£à¸°à¸šà¸š
               </DropdownItem>
             </DropdownSection>
           </DropdownMenu>
@@ -252,7 +252,7 @@ export const NavbarComponent = () => {
           size="sm"
           onPress={() => signIn("line")}
         >
-          เข้าสู่ระบบด้วย LINE
+          à¹€à¸‚à¹‰à¸²à¸ªà¸¹à¹ˆà¸£à¸°à¸šà¸šà¸”à¹‰à¸§à¸¢ LINE
         </Button>
       </NavbarItem>
     );
@@ -348,7 +348,7 @@ export const NavbarComponent = () => {
           />
         </NavbarContent>
 
-        {/* Mobile Menu (รูปร่างเดียวกับเดสก์ท็อป) */}
+        {/* Mobile Menu (à¸£à¸¹à¸›à¸£à¹ˆà¸²à¸‡à¹€à¸”à¸µà¸¢à¸§à¸à¸±à¸šà¹€à¸”à¸ªà¸à¹Œà¸—à¹‡à¸­à¸›) */}
         <NavbarMenu className="gap-1">
           {navLinks.map((l) => (
             <NavbarMenuItem key={l.href} isActive={router.pathname === l.href}>
@@ -384,3 +384,4 @@ export const NavbarComponent = () => {
 };
 
 export { NavbarComponent as Navbar };
+

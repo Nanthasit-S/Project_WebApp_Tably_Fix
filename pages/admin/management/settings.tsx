@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useSession } from "@/lib/next-auth-react";
 import { Button } from "@heroui/button";
 import { Spinner } from "@heroui/spinner";
 
@@ -49,3 +49,4 @@ export default function ManageSettingsPage() {
     </DefaultLayout>
   );
 }
+

@@ -1,7 +1,7 @@
 import type { Event } from "@/components/events/EventCard";
 
 import { GetServerSideProps } from "next";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession } from "@/lib/next-auth-react";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import NextLink from "next/link";
@@ -99,7 +99,7 @@ const getEventStatus = (event: Event | SliderEvent) => {
 
   if (isSoldOut) {
     return {
-      label: "บัตรหมด",
+      label: "à¸šà¸±à¸•à¸£à¸«à¸¡à¸”",
       theme: "soldout" as EventStatusTheme,
       ticketsRemaining,
     };
@@ -107,14 +107,14 @@ const getEventStatus = (event: Event | SliderEvent) => {
 
   if (event.is_active) {
     return {
-      label: "เปิดขาย",
+      label: "à¹€à¸›à¸´à¸”à¸‚à¸²à¸¢",
       theme: "active" as EventStatusTheme,
       ticketsRemaining,
     };
   }
 
   return {
-    label: "ปิดชั่วคราว",
+    label: "à¸›à¸´à¸”à¸Šà¸±à¹ˆà¸§à¸„à¸£à¸²à¸§",
     theme: "soldout" as EventStatusTheme,
     ticketsRemaining,
   };
@@ -187,7 +187,7 @@ export default function IndexPage({
       >
         <div aria-live="polite" className="flex flex-col items-center gap-3">
           <span className="inline-flex h-10 w-10 animate-spin rounded-full border-2 border-white/30 border-t-transparent" />
-          <p className="text-sm text-white/70">รอแป๊บ กำลังโหลดข้อมูล!...</p>
+          <p className="text-sm text-white/70">à¸£à¸­à¹à¸›à¹Šà¸š à¸à¸³à¸¥à¸±à¸‡à¹‚à¸«à¸¥à¸”à¸‚à¹‰à¸­à¸¡à¸¹à¸¥!...</p>
         </div>
       </main>
     );
@@ -274,16 +274,16 @@ export default function IndexPage({
                   ].join(" ")}
                 />
                 {isBookingEnabled
-                  ? "การจองโต๊ะถูกเปิดอยู่"
-                  : "การจองโต๊ะถูกปิดอยู่"}
+                  ? "à¸à¸²à¸£à¸ˆà¸­à¸‡à¹‚à¸•à¹Šà¸°à¸–à¸¹à¸à¹€à¸›à¸´à¸”à¸­à¸¢à¸¹à¹ˆ"
+                  : "à¸à¸²à¸£à¸ˆà¸­à¸‡à¹‚à¸•à¹Šà¸°à¸–à¸¹à¸à¸›à¸´à¸”à¸­à¸¢à¸¹à¹ˆ"}
               </span>
 
               <h1 className="mt-6 max-w-3xl text-balance text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl">
-                จองโต๊ะของคุณล่วงหน้า
+                à¸ˆà¸­à¸‡à¹‚à¸•à¹Šà¸°à¸‚à¸­à¸‡à¸„à¸¸à¸“à¸¥à¹ˆà¸§à¸‡à¸«à¸™à¹‰à¸²
               </h1>
 
               <p className="mt-5 max-w-2xl text-pretty text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
-                โต๊ะดีมีไม่มาก จองตอนนี้เลย จะได้ไม่พลาดคืนพิเศษสุดมันส์ 😎🎶
+                à¹‚à¸•à¹Šà¸°à¸”à¸µà¸¡à¸µà¹„à¸¡à¹ˆà¸¡à¸²à¸ à¸ˆà¸­à¸‡à¸•à¸­à¸™à¸™à¸µà¹‰à¹€à¸¥à¸¢ à¸ˆà¸°à¹„à¸”à¹‰à¹„à¸¡à¹ˆà¸žà¸¥à¸²à¸”à¸„à¸·à¸™à¸žà¸´à¹€à¸¨à¸©à¸ªà¸¸à¸”à¸¡à¸±à¸™à¸ªà¹Œ ðŸ˜ŽðŸŽ¶
               </p>
               <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row">
                 <button
@@ -298,7 +298,7 @@ export default function IndexPage({
                   type="button"
                   onClick={handlePrimaryAction}
                 >
-                  {isBookingEnabled ? "จองโต๊ะเลย" : "ปิดรับจองชั่วคราว"}
+                  {isBookingEnabled ? "à¸ˆà¸­à¸‡à¹‚à¸•à¹Šà¸°à¹€à¸¥à¸¢" : "à¸›à¸´à¸”à¸£à¸±à¸šà¸ˆà¸­à¸‡à¸Šà¸±à¹ˆà¸§à¸„à¸£à¸²à¸§"}
                 </button>
 
                 <NextLink
@@ -309,13 +309,13 @@ export default function IndexPage({
                   ].join(" ")}
                   href="/events"
                 >
-                  ดูอีเวนต์
+                  à¸”à¸¹à¸­à¸µà¹€à¸§à¸™à¸•à¹Œ
                 </NextLink>
               </div>
 
               {bookingFee > 0 && isBookingEnabled && (
                 <p className="mt-5 text-sm text-white/50">
-                  *มีค่าธรรมเนียมการจอง {bookingFee.toLocaleString("th-TH")} บาท
+                  *à¸¡à¸µà¸„à¹ˆà¸²à¸˜à¸£à¸£à¸¡à¹€à¸™à¸µà¸¢à¸¡à¸à¸²à¸£à¸ˆà¸­à¸‡ {bookingFee.toLocaleString("th-TH")} à¸šà¸²à¸—
                 </p>
               )}
             </div>
@@ -329,17 +329,17 @@ export default function IndexPage({
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase text-emerald-300">
-                  อีเว้นต์ที่กำลังจะเกิดขึ้น
+                  à¸­à¸µà¹€à¸§à¹‰à¸™à¸•à¹Œà¸—à¸µà¹ˆà¸à¸³à¸¥à¸±à¸‡à¸ˆà¸°à¹€à¸à¸´à¸”à¸‚à¸¶à¹‰à¸™
                 </p>
                 <h2 className="mt-2 text-3xl font-semibold text-white md:text-4xl">
-                  ห้ามพลาด
+                  à¸«à¹‰à¸²à¸¡à¸žà¸¥à¸²à¸”
                 </h2>
               </div>
               <NextLink
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2 text-sm font-semibold text-white/80 transition hover:border-white/35 hover:bg-white/10 hover:text-white"
                 href="/events"
               >
-                ดูอีเวนต์ทั้งหมด
+                à¸”à¸¹à¸­à¸µà¹€à¸§à¸™à¸•à¹Œà¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”
               </NextLink>
             </div>
 
@@ -403,15 +403,15 @@ export default function IndexPage({
                         <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-[11px] font-semibold uppercase text-white/70">
                           <span>{getPriceLabel(event.price)}</span>
                           <span>
-                            คงเหลือ {ticketsRemaining.toLocaleString("th-TH")}{" "}
-                            บัตร
+                            à¸„à¸‡à¹€à¸«à¸¥à¸·à¸­ {ticketsRemaining.toLocaleString("th-TH")}{" "}
+                            à¸šà¸±à¸•à¸£
                           </span>
                         </div>
                         <NextLink
                           className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white/85 transition hover:border-white/40 hover:bg-white/10 hover:text-white"
                           href={`/events/${event.id}`}
                         >
-                          ซื้อบัตร
+                          à¸‹à¸·à¹‰à¸­à¸šà¸±à¸•à¸£
                         </NextLink>
                       </div>
                     </article>
@@ -492,3 +492,4 @@ export const getServerSideProps: GetServerSideProps<IndexPageProps> = async ({
     return { props: { events: [], isBookingEnabled: false, bookingFee: 0 } };
   }
 };
+

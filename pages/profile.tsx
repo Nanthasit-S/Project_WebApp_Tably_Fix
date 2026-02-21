@@ -1,4 +1,4 @@
-﻿import type { GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 import type { BookingHistory } from "@/components/profile/BookingHistoryCard";
 import type { Ticket } from "@/types/tickets";
 import type {
@@ -12,7 +12,7 @@ import type {
 
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { useSession } from "next-auth/react";
+import { useSession } from "@/lib/next-auth-react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import DefaultLayout from "@/layouts/default";
@@ -79,13 +79,13 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
       const response = await fetch("/api/bookings/history");
 
       if (!response.ok) {
-        throw new Error("ไม่สามารถโหลดประวัติการจองได้");
+        throw new Error("?????????????????????????????");
       }
       const data = await response.json();
 
       setBookingHistory(data);
     } catch (error) {
-      console.error("ไม่สามารถดึงประวัติการจองได้:", error);
+      console.error("????????????????????????????:", error);
     } finally {
       setLoading(false);
     }
@@ -314,12 +314,12 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
         if (!response.ok) {
           const errorData = await response.json();
 
-          throw new Error(errorData.message || "ยกเลิกการจองไม่สำเร็จ");
+          throw new Error(errorData.message || "?????????????????????");
         }
-        window.alert("ยกเลิกการจองเรียบร้อยแล้ว");
+        window.alert("?????????????????????????");
         fetchHistory();
       } catch (error: any) {
-        window.alert(`เกิดข้อผิดพลาด: ${error.message}`);
+        window.alert(`??????????????: ${error.message}`);
       } finally {
         setCancelModalOpen(false);
       }
@@ -329,7 +329,7 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
 
   const handleClearHistory = useCallback(() => {
     const confirmed = window.confirm(
-      "คุณแน่ใจหรือไม่ว่าต้องการล้างประวัติการจอง? การดำเนินการนี้จะลบรายการที่สร้างไว้ทั้งหมดและไม่สามารถกู้คืนได้",
+      "??????????????????????????????????????????? ????????????????????????????????????????????????????????????????",
     );
 
     if (!confirmed) {
@@ -339,14 +339,14 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
     fetch("/api/bookings/clear-history", { method: "POST" })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("ไม่สามารถล้างประวัติการจองได้");
+          throw new Error("?????????????????????????????");
         }
-        window.alert("ล้างประวัติการจองเรียบร้อยแล้ว");
+        window.alert("??????????????????????????????");
         fetchHistory();
       })
       .catch((error) => {
         console.error(error);
-        window.alert("ล้างประวัติการจองไม่สำเร็จ");
+        window.alert("??????????????????????????");
       });
   }, [fetchHistory]);
 
@@ -388,7 +388,7 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                   </div>
                 ) : (
                   <div className="rounded-3xl border border-white/10 bg-zinc-950/80 p-10 text-center text-zinc-400">
-                    กำลังโหลดประวัติการจอง...
+                    ??????????????????????...
                   </div>
                 )}
               </div>
@@ -400,13 +400,13 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                 <div className="space-y-4">
                   <div>
                     <h2 className="text-xs font-semibold uppercase text-zinc-400">
-                      คำสั่งจองโต๊ะของฉัน
+                      ???????????????????
                     </h2>
                   </div>
 
                   {bookingOrdersLoading ? (
                     <div className="rounded-3xl border border-white/10 bg-zinc-950/80 p-10 text-center text-zinc-400">
-                      กำลังโหลดคำสั่งจองโต๊ะ...
+                      ??????????????????????...
                     </div>
                   ) : hasBookingOrders ? (
                     <div className="space-y-4">
@@ -416,11 +416,11 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                       {bookingOrders.length > PROFILE_ITEMS_PER_PAGE ? (
                         <div className="flex flex-col items-center justify-between gap-3 pt-2 text-zinc-400 sm:flex-row">
                           <span className="text-xs">
-                            หน้า {bookingOrderPage.toLocaleString("th-TH")} จาก{" "}
-                            {bookingOrdersTotalPages.toLocaleString("th-TH")} • แสดง{" "}
+                            ???? {bookingOrderPage.toLocaleString("th-TH")} ???{" "}
+                            {bookingOrdersTotalPages.toLocaleString("th-TH")} • ????{" "}
                             {bookingOrdersRange.start.toLocaleString("th-TH")} -{" "}
-                            {bookingOrdersRange.end.toLocaleString("th-TH")} จาก{" "}
-                            {bookingOrders.length.toLocaleString("th-TH")} รายการ
+                            {bookingOrdersRange.end.toLocaleString("th-TH")} ???{" "}
+                            {bookingOrders.length.toLocaleString("th-TH")} ??????
                           </span>
                           <Pagination
                             classNames={{
@@ -437,11 +437,11 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                   ) : (
                     <div className="rounded-3xl border border-dashed border-white/10 bg-zinc-950/80 px-6 py-16 text-center text-zinc-400">
                       <p className="text-lg font-semibold text-white">
-                        ยังไม่มีคำสั่งจองโต๊ะ
+                        ?????????????????????
                       </p>
                       <p className="mt-2 text-sm">
-                        เมื่อคุณเริ่มจองโต๊ะ
-                        ระบบจะแสดงคำสั่งจองที่สร้างไว้ที่นี่เพื่อกลับมาตรวจสอบหรือชำระเงินได้สะดวก
+                        ????????????????????
+                        ??????????????????????????????????????????????????????????????????????????
                       </p>
                     </div>
                   )}
@@ -455,16 +455,16 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                 <div className="space-y-4">
                   <div>
                     <h2 className="text-xs font-semibold uppercase text-zinc-400">
-                      คำสั่งซื้ออีเวนต์ของฉัน
+                      ???????????????????????
                     </h2>
                     <p className="mt-2 text-sm text-zinc-400">
-                      กลับไปยังหน้าติดตามการสั่งซื้อเพื่อชำระเงินหรือดูสถานะล่าสุดของบัตรที่จองไว้
+                      ????????????????????????????????????????????????????????????????????????????
                     </p>
                   </div>
 
                   {eventOrdersLoading ? (
                     <div className="rounded-3xl border border-white/10 bg-zinc-950/80 p-10 text-center text-zinc-400">
-                      กำลังโหลดคำสั่งซื้อ...
+                      ???????????????????...
                     </div>
                   ) : hasEventOrders ? (
                     <div className="space-y-4">
@@ -474,11 +474,11 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                       {eventOrders.length > PROFILE_ITEMS_PER_PAGE ? (
                         <div className="flex flex-col items-center justify-between gap-3 pt-2 text-zinc-400 sm:flex-row">
                           <span className="text-xs">
-                            หน้า {eventOrderPage.toLocaleString("th-TH")} จาก{" "}
-                            {eventOrdersTotalPages.toLocaleString("th-TH")} • แสดง{" "}
+                            ???? {eventOrderPage.toLocaleString("th-TH")} ???{" "}
+                            {eventOrdersTotalPages.toLocaleString("th-TH")} • ????{" "}
                             {eventOrdersRange.start.toLocaleString("th-TH")} -{" "}
-                            {eventOrdersRange.end.toLocaleString("th-TH")} จาก{" "}
-                            {eventOrders.length.toLocaleString("th-TH")} รายการ
+                            {eventOrdersRange.end.toLocaleString("th-TH")} ???{" "}
+                            {eventOrders.length.toLocaleString("th-TH")} ??????
                           </span>
                           <Pagination
                             classNames={{
@@ -495,11 +495,11 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                   ) : (
                     <div className="rounded-3xl border border-dashed border-white/10 bg-zinc-950/80 px-6 py-16 text-center text-zinc-400">
                       <p className="text-lg font-semibold text-white">
-                        ยังไม่มีคำสั่งซื้ออีเวนต์
+                        ?????????????????????????
                       </p>
                       <p className="mt-2 text-sm">
-                        เมื่อคุณเริ่มสั่งซื้อบัตร
-                        ระบบจะแสดงคำสั่งซื้อที่สร้างไว้ที่นี่เพื่อให้กลับมาตรวจสอบหรือชำระเงินได้สะดวก
+                        ?????????????????????????
+                        ??????????????????????????????????????????????????????????????????????????????
                       </p>
                     </div>
                   )}
@@ -513,11 +513,11 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                 <div className="space-y-4">
                   <div>
                     <h2 className="text-xs font-semibold uppercase text-zinc-400">
-                      ตั๋วของฉัน
+                      ??????????
                     </h2>
                     <p className="mt-2 text-sm text-zinc-400">
-                      แสดงตั๋วอีเวนต์ทั้งหมดที่ซื้อไว้
-                      พร้อมแสดงคิวอาร์โค้ดเพื่อเข้างาน
+                      ????????????????????????????????
+                      ????????????????????????????????
                     </p>
                   </div>
 
@@ -530,11 +530,11 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                         {tickets.length > PROFILE_ITEMS_PER_PAGE ? (
                           <div className="flex flex-col items-center justify-between gap-3 pt-2 text-zinc-400 sm:flex-row">
                             <span className="text-xs">
-                              หน้า {ticketPage.toLocaleString("th-TH")} จาก{" "}
-                              {ticketTotalPages.toLocaleString("th-TH")} • แสดง{" "}
+                              ???? {ticketPage.toLocaleString("th-TH")} ???{" "}
+                              {ticketTotalPages.toLocaleString("th-TH")} • ????{" "}
                               {ticketRange.start.toLocaleString("th-TH")} -{" "}
-                              {ticketRange.end.toLocaleString("th-TH")} จาก{" "}
-                              {tickets.length.toLocaleString("th-TH")} รายการ
+                              {ticketRange.end.toLocaleString("th-TH")} ???{" "}
+                              {tickets.length.toLocaleString("th-TH")} ??????
                             </span>
                             <Pagination
                               classNames={{
@@ -551,10 +551,10 @@ export default function ProfilePage({ tickets }: ProfilePageProps) {
                     ) : (
                       <div className="rounded-3xl border border-dashed border-white/10 bg-zinc-950/80 px-6 py-16 text-center text-zinc-400">
                         <p className="text-lg font-semibold text-white">
-                          คุณยังไม่มีบัตรเข้าร่วมกิจกรรม
+                          ??????????????????????????????
                         </p>
                         <p className="mt-2 text-sm">
-                          ไปที่เมนูอีเวนต์เพื่อเลือกชมกิจกรรมและซื้อบัตรล่วงหน้าได้ทันที
+                          ??????????????????????????????????????????????????????????????
                         </p>
                       </div>
                     )}
@@ -646,3 +646,4 @@ export const getServerSideProps: GetServerSideProps<ProfilePageProps> = async (
     },
   };
 };
+

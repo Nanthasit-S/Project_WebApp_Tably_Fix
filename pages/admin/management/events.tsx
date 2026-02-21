@@ -1,7 +1,7 @@
 // fixcy/pages/admin/management/events.tsx
 import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useSession } from "@/lib/next-auth-react";
 import NextLink from "next/link";
 import { Button } from "@heroui/button";
 import { Spinner } from "@heroui/spinner";
@@ -69,14 +69,14 @@ export default function ManageEventsPage() {
             ? String(payload.message ?? "")
             : "";
 
-        throw new Error(message || "ไม่สามารถโหลดรายการอีเวนต์ได้");
+        throw new Error(message || "à¹„à¸¡à¹ˆà¸ªà¸²à¸¡à¸²à¸£à¸–à¹‚à¸«à¸¥à¸”à¸£à¸²à¸¢à¸à¸²à¸£à¸­à¸µà¹€à¸§à¸™à¸•à¹Œà¹„à¸”à¹‰");
       }
 
       setImages(payload);
     } catch (error) {
       showNotification(
-        "โหลดข้อมูลไม่สำเร็จ",
-        error instanceof Error ? error.message : "กรุณาลองใหม่อีกครั้ง",
+        "à¹‚à¸«à¸¥à¸”à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹„à¸¡à¹ˆà¸ªà¸³à¹€à¸£à¹‡à¸ˆ",
+        error instanceof Error ? error.message : "à¸à¸£à¸¸à¸“à¸²à¸¥à¸­à¸‡à¹ƒà¸«à¸¡à¹ˆà¸­à¸µà¸à¸„à¸£à¸±à¹‰à¸‡",
         "error",
       );
     } finally {
@@ -109,19 +109,19 @@ export default function ManageEventsPage() {
             ? String(payload.message ?? "")
             : "";
 
-        throw new Error(message || "อัปโหลดอีเวนต์ไม่สำเร็จ");
+        throw new Error(message || "à¸­à¸±à¸›à¹‚à¸«à¸¥à¸”à¸­à¸µà¹€à¸§à¸™à¸•à¹Œà¹„à¸¡à¹ˆà¸ªà¸³à¹€à¸£à¹‡à¸ˆ");
       }
 
       await fetchImages();
       showNotification(
-        "อัปโหลดสำเร็จ",
-        "เพิ่มอีเวนต์ใหม่บนสไลด์เรียบร้อยแล้ว",
+        "à¸­à¸±à¸›à¹‚à¸«à¸¥à¸”à¸ªà¸³à¹€à¸£à¹‡à¸ˆ",
+        "à¹€à¸žà¸´à¹ˆà¸¡à¸­à¸µà¹€à¸§à¸™à¸•à¹Œà¹ƒà¸«à¸¡à¹ˆà¸šà¸™à¸ªà¹„à¸¥à¸”à¹Œà¹€à¸£à¸µà¸¢à¸šà¸£à¹‰à¸­à¸¢à¹à¸¥à¹‰à¸§",
         "success",
       );
     } catch (error: any) {
       showNotification(
-        "อัปโหลดไม่สำเร็จ",
-        error instanceof Error ? error.message : "กรุณาลองใหม่อีกครั้ง",
+        "à¸­à¸±à¸›à¹‚à¸«à¸¥à¸”à¹„à¸¡à¹ˆà¸ªà¸³à¹€à¸£à¹‡à¸ˆ",
+        error instanceof Error ? error.message : "à¸à¸£à¸¸à¸“à¸²à¸¥à¸­à¸‡à¹ƒà¸«à¸¡à¹ˆà¸­à¸µà¸à¸„à¸£à¸±à¹‰à¸‡",
         "error",
       );
       throw error;
@@ -149,19 +149,19 @@ export default function ManageEventsPage() {
             ? String(payload.message ?? "")
             : "";
 
-        throw new Error(message || "บันทึกการแก้ไขไม่สำเร็จ");
+        throw new Error(message || "à¸šà¸±à¸™à¸—à¸¶à¸à¸à¸²à¸£à¹à¸à¹‰à¹„à¸‚à¹„à¸¡à¹ˆà¸ªà¸³à¹€à¸£à¹‡à¸ˆ");
       }
 
       await fetchImages();
       showNotification(
-        "บันทึกสำเร็จ",
-        "อัปเดตข้อมูลอีเวนต์เรียบร้อยแล้ว",
+        "à¸šà¸±à¸™à¸—à¸¶à¸à¸ªà¸³à¹€à¸£à¹‡à¸ˆ",
+        "à¸­à¸±à¸›à¹€à¸”à¸•à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸­à¸µà¹€à¸§à¸™à¸•à¹Œà¹€à¸£à¸µà¸¢à¸šà¸£à¹‰à¸­à¸¢à¹à¸¥à¹‰à¸§",
         "success",
       );
     } catch (error) {
       showNotification(
-        "บันทึกไม่สำเร็จ",
-        error instanceof Error ? error.message : "กรุณาลองใหม่ในภายหลัง",
+        "à¸šà¸±à¸™à¸—à¸¶à¸à¹„à¸¡à¹ˆà¸ªà¸³à¹€à¸£à¹‡à¸ˆ",
+        error instanceof Error ? error.message : "à¸à¸£à¸¸à¸“à¸²à¸¥à¸­à¸‡à¹ƒà¸«à¸¡à¹ˆà¹ƒà¸™à¸ à¸²à¸¢à¸«à¸¥à¸±à¸‡",
         "error",
       );
       throw error;
@@ -181,7 +181,7 @@ export default function ManageEventsPage() {
     return (
       <DefaultLayout>
         <div className="flex h-[calc(100vh-150px)] items-center justify-center">
-          <Spinner color="primary" label="กำลังตรวจสอบสิทธิ์..." size="lg" />
+          <Spinner color="primary" label="à¸à¸³à¸¥à¸±à¸‡à¸•à¸£à¸§à¸ˆà¸ªà¸­à¸šà¸ªà¸´à¸—à¸˜à¸´à¹Œ..." size="lg" />
         </div>
       </DefaultLayout>
     );
@@ -202,8 +202,8 @@ export default function ManageEventsPage() {
               Event & Promotion Hub
             </h2>
             <p className="mt-1 text-sm text-default-500">
-              ควบคุมสื่อโปรโมตในสไลด์หน้าแรก อัปเดตรายละเอียดอีเวนต์
-              และติดตามยอดขายบัตรได้จากจุดเดียว
+              à¸„à¸§à¸šà¸„à¸¸à¸¡à¸ªà¸·à¹ˆà¸­à¹‚à¸›à¸£à¹‚à¸¡à¸•à¹ƒà¸™à¸ªà¹„à¸¥à¸”à¹Œà¸«à¸™à¹‰à¸²à¹à¸£à¸ à¸­à¸±à¸›à¹€à¸”à¸•à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¸­à¸µà¹€à¸§à¸™à¸•à¹Œ
+              à¹à¸¥à¸°à¸•à¸´à¸”à¸•à¸²à¸¡à¸¢à¸­à¸”à¸‚à¸²à¸¢à¸šà¸±à¸•à¸£à¹„à¸”à¹‰à¸ˆà¸²à¸à¸ˆà¸¸à¸”à¹€à¸”à¸µà¸¢à¸§
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -214,7 +214,7 @@ export default function ManageEventsPage() {
               startContent={<BackIcon />}
               variant="light"
             >
-              กลับไปหน้าแดชบอร์ด
+              à¸à¸¥à¸±à¸šà¹„à¸›à¸«à¸™à¹‰à¸²à¹à¸”à¸Šà¸šà¸­à¸£à¹Œà¸”
             </Button>
             <Button
               color="primary"
@@ -222,7 +222,7 @@ export default function ManageEventsPage() {
               startContent={<PlusIcon />}
               onPress={openUploadModal}
             >
-              เพิ่มอีเวนต์ใหม่
+              à¹€à¸žà¸´à¹ˆà¸¡à¸­à¸µà¹€à¸§à¸™à¸•à¹Œà¹ƒà¸«à¸¡à¹ˆ
             </Button>
           </div>
         </CardHeader>
@@ -250,3 +250,4 @@ export default function ManageEventsPage() {
     </DefaultLayout>
   );
 }
+
